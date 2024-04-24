@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Number Converter</title>
+
+<style>
+  body {
+        background-color: black; 
+        background-size: cover; 
+        background-position: center; 
+        color: white; /* Default text color */
+    }
+    body {
+        font-family: Helvetica, sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        position: relative;
+        top: 50px;
+        padding: 20px 25px;
+        background-color: black;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid white;
+        box-shadow: 0 0 5px white, 0 0 35px white;
+        text-align: center; 
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 35px;
+        color: white;
+        font-family: Helvetica, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 25px;
+        color: white;
+    }
+
+    label {
+        font-weight: bold;
+        color: white;
+    }
+
+    select {
+        margin: 5px;
+        background-color: white;
+        font-family: Helvetica, sans-serif;
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 0 10px white;
+    }
+
+    input[type="text"] {
+        width: 90%;
+        padding: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 22px;
+        margin-top: 18px;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        box-shadow: 0 0 5px white, 0 0 25px white;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        background-color: white;
+        font-weight: bold;
+        font-family: Helvetica, sans-serif;
+        color: black;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 0 10px white;
+    }
+
+    button:hover {
+        background-color: #c9c9c9;
+    }
+
+    #result {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        box-shadow: 0 0 5px white, 0 0 35px white;
+    }
+
+    .dropdown-container {
+        display: inline-block;
+    }
+
+    .dropdown-container span {
+        display: inline-block;
+        margin: 0 10px;
+        color: white;
+    }
+
+    .switch-mode-container {
+        text-align: center;
+        margin-top: 100px;
+        margin-bottom: 20px;
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Number Conversion Program</h1>
+    <div class="dropdown-container">
+        <div>
+            <label for="from"></label>
+            <select id="from">
+                <option value="binary">Binary</option>
+                <option value="decimal">Decimal</option>
+                <option value="octal">Octal</option>
+                <option value="hexadecimal">Hexadecimal</option>
+            </select>
+            <span>to</span>
+            <label for="to"></label>
+            <select id="to">
+                <option value="binary">Binary</option>
+                <option value="decimal">Decimal</option>
+                <option value="octal">Octal</option>
+                <option value="hexadecimal">Hexadecimal</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <label for="number"></label>
+        <input type="text" id="number">
+    </div>
+    <div>
+        <button onclick="convert()">Convert</button>
+    </div>
+    <div id="result"></div>
+</div>
+
+<div class="switch-mode-container">
+    <button onclick="switchMode()">Switch Mode</button>
+</div>
+
+<script>
+    function convert() {
+        var number = document.getElementById('number').value.trim();
+        var from = document.getElementById('from').value;
+        var to = document.getElementById('to').value;
+        var result = document.getElementById('result');
+        result.innerHTML = '';
+
+       
+        if (!number) {
+            result.innerHTML = 'Please enter a number.';
+            return;
+        }
+
+        
+        var decimal;
+        switch (from) {
+            case 'binary':
+                decimal = parseInt(number, 2);
+                break;
+            case 'hexadecimal':
+                decimal = parseInt(number, 16);
+                break;
+            case 'octal':
+                decimal = parseInt(number, 8);
+                break;
+            case 'decimal':
+            default:
+                decimal = parseInt(number, 10);
+                break;
+        }
+
+       
+        var convertedNumber;
+        switch (to) {
+            case 'binary':
+                convertedNumber = decimal.toString(2);
+                break;
+            case 'hexadecimal':
+                convertedNumber = decimal.toString(16).toUpperCase();
+                break;
+            case 'octal':
+                convertedNumber = decimal.toString(8);
+                break;
+            case 'decimal':
+            default:
+                convertedNumber = decimal.toString(10);
+                break;
+        }
+
+        
+        result.innerHTML = '<p>' + to.charAt(0).toUpperCase() + to.slice(1) + ': ' + convertedNumber + '</p>';
+    }
+
+    function switchMode() {
+        var body = document.body;
+        var currentBackgroundColor = window.getComputedStyle(body).backgroundColor;
+        
+        if (currentBackgroundColor === "rgb(0, 0, 0)") {
+            // Change to light mode
+            body.style.backgroundColor = "white";
+            body.style.color = "black";
+        } else {
+            // Change to dark mode
+            body.style.backgroundColor = "black";
+            body.style.color = "black";
+        }
+    }
+</script>
+
+</body>
+</html>
